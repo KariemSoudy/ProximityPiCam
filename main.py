@@ -14,13 +14,13 @@ camera = Camera.Camera()
 
 def takepic_sendemail():
     #take a pic and save it
-    image_path = camera.capture()
+    #image_path = camera.capture()
     #send email
-    email.sendattachment("aj.bsb7@gmail.com", "RPi zero captured image", "<h1>BODY</h1>", image_path)
+    #email.sendattachment("aj.bsb7@gmail.com", "RPi zero captured image", "<h1>BODY</h1>", image_path)
     #delete file
-    try:
-        os.remove(image_path)
-    except:
+    #try:
+        #os.remove(image_path)
+    #except:
         pass
 
 try:
