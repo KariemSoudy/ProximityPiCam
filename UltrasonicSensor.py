@@ -2,9 +2,6 @@ import RPi.GPIO as GPIO
 import time
 
 class UltrasonicSensor:
-
-    TRIG = None
-    ECHO = None
     
     def __init__(self, _trig, _echo):
         self.TRIG = _trig
