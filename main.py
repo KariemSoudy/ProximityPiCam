@@ -1,18 +1,27 @@
 import UltrasonicSensor
 import Email
+import Camera
 import threading
+import os
+import time
 
 distance_threshold = 20 #in CM
 picture_taken = False
 
 sensor = UltrasonicSensor.UltrasonicSensor(19, 26)
 email = Email.Email()
-
+camera = Camera.Camera()
 
 def takepic_sendemail():
     #take a pic and save it
+    image_path = camera.capture()
     #send email
-    email.sendattachment("aj.bsb7@gmail.com", "RPi zero test email", "<h1>TEST</h1>", "/home/pi/Desktop/Code/ProximityPiCam/pi.jpg")    
+    email.sendattachment("aj.bsb7@gmail.com", "RPi zero captured image", "<h1>BODY</h1>", image_path)
+    #delete file
+    try:
+        os.remove(image_path)
+    except:
+        pass
 
 try:
     while True:
@@ -32,6 +41,8 @@ try:
             if picture_taken:
                 print("too far, release...")
                 picture_taken = False
+
+        time.sleep(0.1)
 
 except KeyboardInterrupt:
     print("Exit")
