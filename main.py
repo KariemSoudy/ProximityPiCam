@@ -10,19 +10,18 @@ try:
     while True:
         #print("get distance")
         distance = sensor.getdistance()
+
+        if distance == -1: #sensor error
+            continue
         
         if distance <= distance_threshold:
-            #print("distance <= distance_threshold")
             if not picture_taken:
-                #print("not picture_taken")
-                #print("too close, taking a picture...")
                 print("too close, taking a picture...")
-                #print("picture_taken = True")
                 picture_taken = True
         else:
-            #print("ELSE distance > distance_threshold")
-            #print("picture_taken = False")
-            picture_taken = False
+            if picture_taken:
+                print("too far, release...")
+                picture_taken = False
         
 except KeyboardInterrupt:
     print("Exit")
