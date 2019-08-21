@@ -1,29 +1,42 @@
-import UltrasonicSensor
-import Email
-import Camera
+from UltrasonicSensor import UltrasonicSensor
+from Email import Email
+from Camera import Camera
+from LED import LED,BlinkSpeed
 import threading
 import os
 import time
 
-distance_threshold = 20 #in CM
-picture_taken = False
+#variables
+distance_threshold  = 20 #in CM
+picture_taken       = False
 
-sensor = UltrasonicSensor.UltrasonicSensor(19, 26)
-email = Email.Email()
-camera = Camera.Camera()
+#objects
+sensor              = UltrasonicSensor(19, 26)
+email               = Email()
+camera              = Camera()
+grn_led             = LED(13)
+red_led             = LED(6)
 
+#methods
 def takepic_sendemail():
     #take a pic and save it
-    #image_path = camera.capture()
+    image_path = camera.capture()
     #send email
     #email.sendattachment("aj.bsb7@gmail.com", "RPi zero captured image", "<h1>BODY</h1>", image_path)
     #delete file
     #try:
         #os.remove(image_path)
     #except:
-        pass
+        #pass
 
+def cleanup():
+    grn_led.cleanup()
+    red_led.cleanup()
+
+#main program
 try:
+    grn_led.turnon()
+    red_led.turnoff()
     while True:
         #print("get distance")
         distance = sensor.getdistance()
@@ -45,5 +58,7 @@ try:
         time.sleep(0.1)
 
 except KeyboardInterrupt:
+    print("Cleanup")
+    cleanup()
     print("Exit")
     sensor.cleanup()

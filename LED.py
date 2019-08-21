@@ -34,7 +34,7 @@ class LED:
             sleep(float(str(_speed)))
             self.turnoff()
             sleep(float(str(_speed)))
-            
 
-#GRN_LED = LED(13)
-#RED_LED = LED(6)
+
+    def cleanup(self):
+        GPIO.cleanup()

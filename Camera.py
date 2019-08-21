@@ -6,10 +6,10 @@ class Camera:
 
     def __init__(self):
         self.camera = PiCamera()
-        self.date = datetime.datetime.now()
 
     def capture(self):
-        image_path = '/home/pi/Desktop/Code/ProximityPiCam/capture/' + self.date.strftime("%y") + self.date.strftime("%m") + self.date.strftime("%d") + self.date.strftime("%M") + self.date.strftime("%H") + self.date.strftime("%S") + self.date.strftime("%f") + '.jpg'
+        date = datetime.datetime.now()
+        image_path = '/home/pi/Desktop/Code/ProximityPiCam/capture/' + date.strftime("%y") + date.strftime("%m") + date.strftime("%d") + date.strftime("%M") + date.strftime("%H") + date.strftime("%S") + date.strftime("%f") + '.jpg'
 
         self.camera.start_preview()
         self.camera.exposure_mode = "sports"
