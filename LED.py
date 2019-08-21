@@ -36,5 +36,3 @@ class LED:
             sleep(float(str(_speed)))
 
 
-    def cleanup(self):
-        GPIO.cleanup()
