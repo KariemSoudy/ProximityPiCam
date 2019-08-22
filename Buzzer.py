@@ -1,15 +1,5 @@
 import RPi.GPIO as GPIO
 from time import sleep
-from enum import Enum
-
-class BeepSpeed(Enum):
-
-    def __str__(self):
-        return str(self.value)
-
-    SLOW = 0.5
-    NORMAL = 0.1
-    FAST = 0.05
 
 class Buzzer:
 

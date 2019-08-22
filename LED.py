@@ -2,15 +2,6 @@ import RPi.GPIO as GPIO
 from time import sleep
 from enum import Enum
 
-class BlinkSpeed(Enum):
-
-    def __str__(self):
-        return str(self.value)
-
-    SLOW = 0.5
-    NORMAL = 0.1
-    FAST = 0.05
-
 class LED:
 
     def __init__(self, _pin):
@@ -29,6 +20,8 @@ class LED:
         
 
     def blink(self, _repeat, _speed):
+        self.turnoff()
+        sleep(float(str(_speed)))
         for i in range(_repeat):
             self.turnon()
             sleep(float(str(_speed)))
