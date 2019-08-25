@@ -38,16 +38,27 @@ def beep_buzzer():
     
 def takepic_sendemail():
     #take a pic and save it
-    image_path = camera.capture()
-    #send email
-    email.sendattachment("aj.bsb7@gmail.com", "RPi zero captured image", "", image_path)
-    #delete file
-    try:
-        os.remove(image_path)
-    except:
-        pass
+    capture_result, image_path = camera.capture()
+    if capture_result == False:
+        print("image not captured")
+        
+    else:
+        print("image captured")
+        #send email
+        email_result = email.sendattachment("aj.bsb7@gmail.com", "RPi zero captured image", "", image_path)
+        if email_result == False:
+            print("email not sent")
+
+        else:
+            print("email sent")
+            #delete file
+            try:
+                os.remove(image_path)
+            except:
+                pass
+
+            blink_green()
     
-    blink_green()
     reset()
     
     

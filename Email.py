@@ -16,32 +16,32 @@ class Email:
 
 
     def sendattachment(self, _to, _subject, _body, _attachment_path):
-        try:
-            msg = MIMEMultipart()
-            msg['From'] = self.fromaddr
-            msg['To'] = _to
-            msg['Subject'] = _subject
-            body = _body
-            msg.attach(MIMEText(body, 'html'))
+        #try:
+        msg = MIMEMultipart()
+        msg['From'] = self.fromaddr
+        msg['To'] = _to
+        msg['Subject'] = _subject
+        body = _body
+        msg.attach(MIMEText(body, 'html'))
             
-            attachment = open(_attachment_path, "rb")
+        attachment = open(_attachment_path, "rb")
             
-            part = MIMEBase('application', 'octet-stream')
-            part.set_payload((attachment).read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', "attachment; filename= {}".format(os.path.split(_attachment_path)[1]))
-            msg.attach(part)
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload((attachment).read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', "attachment; filename= {}".format(os.path.split(_attachment_path)[1]))
+        msg.attach(part)
             
-            server = smtplib.SMTP(self.host, self.port)
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login(self.fromaddr, self.frompass)
-            text = msg.as_string()
-            server.sendmail(self.fromaddr, _to, text)
-            server.quit()
-            return True
+        server = smtplib.SMTP(self.host, self.port)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(self.fromaddr, self.frompass)
+        text = msg.as_string()
+        server.sendmail(self.fromaddr, _to, text)
+        server.quit()
+        return True
 
-        except:
-            return False
+        #except:
+            #return False
 
